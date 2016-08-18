@@ -1,13 +1,13 @@
 #include "mbed.h"
 #include <VL6180x.h>
 #include <TPA81.h>
-
-
+#include <SRF05.h>
 
 int main() {
 	Timer timer;
 	TPA81 temp(D4, D5);
 	VL6180x sonar(D4, D5, 0x29 << 1);
+	SRF05 usonic(D11, D12);
 	
 	Serial pc(USBTX, USBRX);
 	pc.baud(9600);
@@ -15,15 +15,17 @@ int main() {
 	sonar.VL6180xInit();
 	//    sonar.VL6180xDefautSettings();
 	
-	uint8_t distance;
+	uint8_t ir;
+	float usonicval;
 	int temp1;
 	int temp2;
 	while(1) {
-		distance = sonar.getDistance();
+		ir = sonar.getDistance();
+		usonicval = usonic.read();
 		temp1 = temp.getTemp(4);
 		temp2 = temp.getTemp(5);
 		
-		printf("Sonar: %4d, Temp1: %4d, Temp2: %4d, TempaAvg: %4d\n", distance, temp1, temp2, (temp1+temp2)/2);
+		printf("IR: %4d, USonic: %3.2f, Temp1: %4d, Temp2: %4d, TempaAvg: %4d\n", ir, usonicval, temp1, temp2, (temp1+temp2)/2);
 		
 	}
 	
