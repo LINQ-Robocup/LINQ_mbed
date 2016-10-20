@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F71819D945DC1DD8D8852EE46D1678F36C4DDFCD",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E8BB4B63D9CDD0CFC022A663B516551389A880F3" : 0,
+    "F71819D945DC1DD8D8852EE46D1678F36C4DDFCD" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "ACD77D54-C0BC-44FF-B895-7F2636BC43F3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E8BB4B63D9CDD0CFC022A663B516551389A880F3" : "Library\/Developer\/Xcode\/Templates\/embedded\/",
+    "F71819D945DC1DD8D8852EE46D1678F36C4DDFCD" : "github\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "LINQ_mbed",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "LINQ_mbed\/LINQ_mbed.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/BiggieAndKp\/xcode-project-templates",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E8BB4B63D9CDD0CFC022A663B516551389A880F3"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/LINQ_Robocup\/LINQ_mbed",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F71819D945DC1DD8D8852EE46D1678F36C4DDFCD"
+    }
+  ]
+}

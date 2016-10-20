@@ -1,0 +1,493 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7777C9651DB61AC900428057 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7777C9641DB61AC900428057 /* main.cpp */; };
+		7777C9671DB61AC900428057 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 7777C9661DB61AC900428057 /* Makefile */; };
+		7777C9811DB6200700428057 /* PCA9547.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7777C97F1DB6200700428057 /* PCA9547.cpp */; };
+		7777C9841DB6201300428057 /* Servo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7777C9821DB6201300428057 /* Servo.cpp */; };
+		7777C9871DB6201D00428057 /* SRF05.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7777C9851DB6201D00428057 /* SRF05.cpp */; };
+		7777C98A1DB6202400428057 /* TPA81.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7777C9881DB6202400428057 /* TPA81.cpp */; };
+		7777C98D1DB6202C00428057 /* VL6180x.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7777C98B1DB6202C00428057 /* VL6180x.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7777C95E1DB61AC900428057 /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
+		7777C9611DB61AC900428057 /* mbed */ = {isa = PBXFileReference; lastKnownFileType = text; name = mbed; path = "~/Library/Developer/Xcode/Templates/embedded/mbed"; sourceTree = "<absolute>"; };
+		7777C9621DB61AC900428057 /* mbed-rtos */ = {isa = PBXFileReference; lastKnownFileType = text; name = "mbed-rtos"; path = "~/Library/Developer/Xcode/Templates/embedded/mbed-rtos"; sourceTree = "<absolute>"; };
+		7777C9631DB61AC900428057 /* stm32l432.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = stm32l432.xcconfig; sourceTree = "<group>"; };
+		7777C9641DB61AC900428057 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		7777C9661DB61AC900428057 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		7777C97F1DB6200700428057 /* PCA9547.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PCA9547.cpp; path = PCA9547/PCA9547.cpp; sourceTree = "<group>"; };
+		7777C9801DB6200700428057 /* PCA9547.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCA9547.h; path = PCA9547/PCA9547.h; sourceTree = "<group>"; };
+		7777C9821DB6201300428057 /* Servo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Servo.cpp; path = Servo/Servo.cpp; sourceTree = "<group>"; };
+		7777C9831DB6201300428057 /* Servo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Servo.h; path = Servo/Servo.h; sourceTree = "<group>"; };
+		7777C9851DB6201D00428057 /* SRF05.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SRF05.cpp; path = SRF05/SRF05.cpp; sourceTree = "<group>"; };
+		7777C9861DB6201D00428057 /* SRF05.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRF05.h; path = SRF05/SRF05.h; sourceTree = "<group>"; };
+		7777C9881DB6202400428057 /* TPA81.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TPA81.cpp; path = TPA81/TPA81.cpp; sourceTree = "<group>"; };
+		7777C9891DB6202400428057 /* TPA81.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPA81.h; path = TPA81/TPA81.h; sourceTree = "<group>"; };
+		7777C98B1DB6202C00428057 /* VL6180x.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VL6180x.cpp; path = VL6180x/VL6180x.cpp; sourceTree = "<group>"; };
+		7777C98C1DB6202C00428057 /* VL6180x.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VL6180x.h; path = VL6180x/VL6180x.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		7777C9511DB61AC900428057 = {
+			isa = PBXGroup;
+			children = (
+				7777C9601DB61AC900428057 /* LINQ_mbed */,
+				7777C95F1DB61AC900428057 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7777C95F1DB61AC900428057 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7777C95E1DB61AC900428057 /* Index */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7777C9601DB61AC900428057 /* LINQ_mbed */ = {
+			isa = PBXGroup;
+			children = (
+				7777C9611DB61AC900428057 /* mbed */,
+				7777C9621DB61AC900428057 /* mbed-rtos */,
+				7777C9631DB61AC900428057 /* stm32l432.xcconfig */,
+				7777C9641DB61AC900428057 /* main.cpp */,
+				7777C97F1DB6200700428057 /* PCA9547.cpp */,
+				7777C9801DB6200700428057 /* PCA9547.h */,
+				7777C9821DB6201300428057 /* Servo.cpp */,
+				7777C9831DB6201300428057 /* Servo.h */,
+				7777C9851DB6201D00428057 /* SRF05.cpp */,
+				7777C9861DB6201D00428057 /* SRF05.h */,
+				7777C9881DB6202400428057 /* TPA81.cpp */,
+				7777C9891DB6202400428057 /* TPA81.h */,
+				7777C98B1DB6202C00428057 /* VL6180x.cpp */,
+				7777C98C1DB6202C00428057 /* VL6180x.h */,
+				7777C9661DB61AC900428057 /* Makefile */,
+			);
+			path = LINQ_mbed;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		7777C9561DB61AC900428057 /* All */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = all;
+			buildConfigurationList = 7777C96A1DB61AC900428057 /* Build configuration list for PBXLegacyTarget "All" */;
+			buildPhases = (
+			);
+			buildToolPath = make;
+			buildWorkingDirectory = "$(PROJECT)";
+			dependencies = (
+			);
+			name = All;
+			passBuildSettingsInEnvironment = 1;
+			productName = All;
+		};
+		7777C9571DB61AC900428057 /* Build */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = build;
+			buildConfigurationList = 7777C96D1DB61AC900428057 /* Build configuration list for PBXLegacyTarget "Build" */;
+			buildPhases = (
+			);
+			buildToolPath = make;
+			buildWorkingDirectory = "$(PROJECT)";
+			dependencies = (
+			);
+			name = Build;
+			passBuildSettingsInEnvironment = 1;
+			productName = Build;
+		};
+		7777C9581DB61AC900428057 /* Upload */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "upload -C \"$(PROJECT)\"";
+			buildConfigurationList = 7777C9701DB61AC900428057 /* Build configuration list for PBXLegacyTarget "Upload" */;
+			buildPhases = (
+			);
+			buildToolPath = make;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = Upload;
+			passBuildSettingsInEnvironment = 1;
+			productName = Upload;
+		};
+		7777C9591DB61AC900428057 /* Build&Upload */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = buildAndUpload;
+			buildConfigurationList = 7777C9731DB61AC900428057 /* Build configuration list for PBXLegacyTarget "Build&Upload" */;
+			buildPhases = (
+			);
+			buildToolPath = make;
+			buildWorkingDirectory = "$(PROJECT)";
+			dependencies = (
+			);
+			name = "Build&Upload";
+			passBuildSettingsInEnvironment = 1;
+			productName = "Build&Upload";
+		};
+		7777C95A1DB61AC900428057 /* Clean */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "clean -C \"$(PROJECT)\"";
+			buildConfigurationList = 7777C9761DB61AC900428057 /* Build configuration list for PBXLegacyTarget "Clean" */;
+			buildPhases = (
+			);
+			buildToolPath = make;
+			dependencies = (
+			);
+			name = Clean;
+			passBuildSettingsInEnvironment = 1;
+			productName = Clean;
+		};
+		7777C95B1DB61AC900428057 /* Debug */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "debug -C \"$(PROJECT)\"";
+			buildConfigurationList = 7777C9791DB61AC900428057 /* Build configuration list for PBXLegacyTarget "Debug" */;
+			buildPhases = (
+			);
+			buildToolPath = make;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = Debug;
+			passBuildSettingsInEnvironment = 1;
+			productName = Debug;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXNativeTarget section */
+		7777C95D1DB61AC900428057 /* Index */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7777C97C1DB61AC900428057 /* Build configuration list for PBXNativeTarget "Index" */;
+			buildPhases = (
+				7777C95C1DB61AC900428057 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Index;
+			productName = Index;
+			productReference = 7777C95E1DB61AC900428057 /* Index */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7777C9521DB61AC900428057 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = jagaNikuman;
+				TargetAttributes = {
+					7777C9561DB61AC900428057 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					7777C9571DB61AC900428057 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					7777C9581DB61AC900428057 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					7777C9591DB61AC900428057 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					7777C95A1DB61AC900428057 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					7777C95B1DB61AC900428057 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					7777C95D1DB61AC900428057 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 7777C9551DB61AC900428057 /* Build configuration list for PBXProject "LINQ_mbed" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7777C9511DB61AC900428057;
+			productRefGroup = 7777C95F1DB61AC900428057 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7777C9561DB61AC900428057 /* All */,
+				7777C9571DB61AC900428057 /* Build */,
+				7777C9581DB61AC900428057 /* Upload */,
+				7777C9591DB61AC900428057 /* Build&Upload */,
+				7777C95A1DB61AC900428057 /* Clean */,
+				7777C95B1DB61AC900428057 /* Debug */,
+				7777C95D1DB61AC900428057 /* Index */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7777C95C1DB61AC900428057 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7777C9811DB6200700428057 /* PCA9547.cpp in Sources */,
+				7777C9841DB6201300428057 /* Servo.cpp in Sources */,
+				7777C9671DB61AC900428057 /* Makefile in Sources */,
+				7777C9651DB61AC900428057 /* main.cpp in Sources */,
+				7777C98A1DB6202400428057 /* TPA81.cpp in Sources */,
+				7777C9871DB6201D00428057 /* SRF05.cpp in Sources */,
+				7777C98D1DB6202C00428057 /* VL6180x.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		7777C9681DB61AC900428057 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7777C9631DB61AC900428057 /* stm32l432.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PATH = "$(PATH):$(PROJECT_DIR)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7777C9691DB61AC900428057 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PATH = "$(PATH):$(PROJECT_DIR)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		7777C96B1DB61AC900428057 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7777C96C1DB61AC900428057 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		7777C96E1DB61AC900428057 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		7777C96F1DB61AC900428057 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		7777C9711DB61AC900428057 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		7777C9721DB61AC900428057 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		7777C9741DB61AC900428057 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		7777C9751DB61AC900428057 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		7777C9771DB61AC900428057 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		7777C9781DB61AC900428057 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		7777C97A1DB61AC900428057 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		7777C97B1DB61AC900428057 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		7777C97D1DB61AC900428057 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		7777C97E1DB61AC900428057 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7777C9551DB61AC900428057 /* Build configuration list for PBXProject "LINQ_mbed" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7777C9681DB61AC900428057 /* Debug */,
+				7777C9691DB61AC900428057 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7777C96A1DB61AC900428057 /* Build configuration list for PBXLegacyTarget "All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7777C96B1DB61AC900428057 /* Debug */,
+				7777C96C1DB61AC900428057 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		7777C96D1DB61AC900428057 /* Build configuration list for PBXLegacyTarget "Build" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7777C96E1DB61AC900428057 /* Debug */,
+				7777C96F1DB61AC900428057 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		7777C9701DB61AC900428057 /* Build configuration list for PBXLegacyTarget "Upload" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7777C9711DB61AC900428057 /* Debug */,
+				7777C9721DB61AC900428057 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		7777C9731DB61AC900428057 /* Build configuration list for PBXLegacyTarget "Build&Upload" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7777C9741DB61AC900428057 /* Debug */,
+				7777C9751DB61AC900428057 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		7777C9761DB61AC900428057 /* Build configuration list for PBXLegacyTarget "Clean" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7777C9771DB61AC900428057 /* Debug */,
+				7777C9781DB61AC900428057 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		7777C9791DB61AC900428057 /* Build configuration list for PBXLegacyTarget "Debug" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7777C97A1DB61AC900428057 /* Debug */,
+				7777C97B1DB61AC900428057 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		7777C97C1DB61AC900428057 /* Build configuration list for PBXNativeTarget "Index" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7777C97D1DB61AC900428057 /* Debug */,
+				7777C97E1DB61AC900428057 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7777C9521DB61AC900428057 /* Project object */;
+}
