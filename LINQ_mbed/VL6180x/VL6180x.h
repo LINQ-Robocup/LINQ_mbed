@@ -34,6 +34,7 @@
  * Distributed as-is; no warranty is given.
 */
 #include "mbed.h"
+using namespace mbed;
 #ifndef VL6180x_h
 #define VL6180x_h
 

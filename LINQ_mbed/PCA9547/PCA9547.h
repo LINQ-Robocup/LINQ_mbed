@@ -19,6 +19,7 @@
 #define MBED_PCA9547_H
 
 #include "mbed.h"
+using namespace mbed;
 
 /** PCA9547 class
  *

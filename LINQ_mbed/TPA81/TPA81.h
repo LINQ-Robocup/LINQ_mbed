@@ -1,9 +1,10 @@
 #ifndef MY_TPA_H
 #define MY_TPA_H
+using namespace mbed;
 
 class TPA81{
 public:
-    TPA81(PinName, PinName);
+    TPA81(PinName, PinName, int);
     void setAddress(char);
     int getTempAt();
     int getTemp(short);

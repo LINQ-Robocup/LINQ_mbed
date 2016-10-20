@@ -24,6 +24,7 @@
 #define MBED_SRF05_H
 
 #include "mbed.h"
+using namespace mbed;
 
 /** Library for the SRF05 Ultrasonic range finder
  *

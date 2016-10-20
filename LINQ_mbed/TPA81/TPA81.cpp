@@ -3,9 +3,9 @@
 
 
 
-TPA81::TPA81(PinName mysda, PinName myscl): _TPA(mysda,myscl) {
+TPA81::TPA81(PinName mysda, PinName myscl, int address): _TPA(mysda,myscl) {
     _delay = 51;
-    _addr = 0xD2;
+    _addr = address;
 }
 
 void TPA81::setAddress(char inAddr) {
