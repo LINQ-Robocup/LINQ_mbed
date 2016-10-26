@@ -30,33 +30,46 @@ void SerialAvailavle()
 //==============================================================
 int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[])
 {
+	
+	const int IRDIST1	= 4;
+	const int IRDIST2	= 5;
+	const int IRDIST3	= 0;
+	const int IRDIST4	= 1;
+	const int TEMP1		= 3;
+	const int TEMP2		= 2;
+	const int SR		= NULL;
+
 	mbed::Serial pc(USBTX, USBRX);
 	pc.baud(9600);
 	
-	//各種インスタンス
-	//  SRF05 usonic(D11, D12);
-	//  PwmOut pw    m(PB_0);
+//	SRF05 usonic(D11, D12);
+//	PwmOut pwm(PB_0);
 	PCA9547 mux(D4, D5, 0xE0);
 	mux.select(0);
 	
 	//温度センサのインスタンス作成
-	const int TEMP1 = 4;
 	mux.select(TEMP1);
-	TPA81       temp2(D4, D5, 0xD2);
-//	mux.select(1);
-//	TPA81   temp(D4, D5, 0xD2);
+	TPA81 temp2(D4, D5, 0xD2);
+	mux.select(TEMP2);
+	TPA81 temp(D4, D5, 0xD0);
 	
-	const int IRDIST1 = 0;
-	const int IRDIST2 = 1;
-	//	IR距離センサのインスタンス作成
+	//IR距離センサのインスタンス作成
+	mux.select(IRDIST1);
 	VL6180x irDist(D4, D5, 0x29 << 1);
 	irDist.VL6180xInit();
 	irDist.VL6180xDefautSettings();
-	for(int i = IRDIST1; i <= IRDIST2; i++) {
-		mux.select(i);
-		irDist.VL6180xInit();
-		irDist.VL6180xDefautSettings();
-	}
+	
+	mux.select(IRDIST2);
+	irDist.VL6180xInit();
+	irDist.VL6180xDefautSettings();
+	
+	mux.select(IRDIST3);
+	irDist.VL6180xInit();
+	irDist.VL6180xDefautSettings();
+	
+	mux.select(IRDIST4);
+	irDist.VL6180xInit();
+	irDist.VL6180xDefautSettings();
 	
 	
 	//RS485初期設定
@@ -77,23 +90,18 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[])
 		sendData[0] = irDist.getDistance()/2;
 		mux.select(IRDIST2);
 		sendData[1] = irDist.getDistance()/2;
+		mux.select(IRDIST3);
+		sendData[2] = irDist.getDistance()/2;
+		mux.select(IRDIST4);
+		sendData[3] = irDist.getDistance()/2;
 		mux.select(TEMP1);
-		sendData[2] = temp2.getTemp(4);
+		sendData[4] = temp.getTemp(4);
+		mux.select(TEMP2);
+		sendData[5] = temp2.getTemp(4);
 		for(int i = 0; i < 7; i++){
 			printf("%4d\t", (int)sendData[i]);
 		}puts("");
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
