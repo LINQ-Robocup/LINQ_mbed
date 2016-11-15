@@ -4,6 +4,7 @@
 #include <SRF05.h>
 #include <PCA9547.h>
 #include <Servo.h>
+#include <Ping.h>
 
 //RS485インスタンス(複数の関数から使うためグローバル)
 mbed::Serial rs(PA_9, PA_10);
@@ -42,7 +43,10 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[])
 	mbed::Serial pc(USBTX, USBRX);
 	pc.baud(9600);
 	
+	//超音波距離センサ
 //	SRF05 usonic(D11, D12);
+	Ping usonic(D12);
+	
 //	PwmOut pwm(PB_0);
 	PCA9547 mux(D4, D5, 0xE0);
 	mux.select(0);
@@ -86,6 +90,9 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[])
 	
 	while(1) {
 
+//		ping.Send();
+//		wait_us(2500);
+//		printf("usonic=%4d\t", ping.Read_cm());
 		mux.select(IRDIST1);
 		sendData[0] = irDist.getDistance()/2;
 		mux.select(IRDIST2);

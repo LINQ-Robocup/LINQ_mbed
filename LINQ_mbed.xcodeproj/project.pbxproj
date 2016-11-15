@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7731996A1DDAFF5A00B3F9F2 /* Ping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 773199681DDAFF5A00B3F9F2 /* Ping.cpp */; };
 		7777C9651DB61AC900428057 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7777C9641DB61AC900428057 /* main.cpp */; };
 		7777C9671DB61AC900428057 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 7777C9661DB61AC900428057 /* Makefile */; };
 		7777C9811DB6200700428057 /* PCA9547.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7777C97F1DB6200700428057 /* PCA9547.cpp */; };
@@ -17,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		773199681DDAFF5A00B3F9F2 /* Ping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Ping.cpp; path = Ping/Ping.cpp; sourceTree = "<group>"; };
+		773199691DDAFF5A00B3F9F2 /* Ping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ping.h; path = Ping/Ping.h; sourceTree = "<group>"; };
 		7777C95E1DB61AC900428057 /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
 		7777C9611DB61AC900428057 /* mbed */ = {isa = PBXFileReference; lastKnownFileType = text; name = mbed; path = "~/Library/Developer/Xcode/Templates/embedded/mbed"; sourceTree = "<absolute>"; };
 		7777C9621DB61AC900428057 /* mbed-rtos */ = {isa = PBXFileReference; lastKnownFileType = text; name = "mbed-rtos"; path = "~/Library/Developer/Xcode/Templates/embedded/mbed-rtos"; sourceTree = "<absolute>"; };
@@ -66,6 +69,8 @@
 				7777C9851DB6201D00428057 /* SRF05.cpp */,
 				7777C9861DB6201D00428057 /* SRF05.h */,
 				7777C9881DB6202400428057 /* TPA81.cpp */,
+				773199681DDAFF5A00B3F9F2 /* Ping.cpp */,
+				773199691DDAFF5A00B3F9F2 /* Ping.h */,
 				7777C9891DB6202400428057 /* TPA81.h */,
 				7777C98B1DB6202C00428057 /* VL6180x.cpp */,
 				7777C98C1DB6202C00428057 /* VL6180x.h */,
@@ -245,6 +250,7 @@
 				7777C98A1DB6202400428057 /* TPA81.cpp in Sources */,
 				7777C9871DB6201D00428057 /* SRF05.cpp in Sources */,
 				7777C98D1DB6202C00428057 /* VL6180x.cpp in Sources */,
+				7731996A1DDAFF5A00B3F9F2 /* Ping.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,6 +444,7 @@
 				7777C96C1DB61AC900428057 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7777C96D1DB61AC900428057 /* Build configuration list for PBXLegacyTarget "Build" */ = {
 			isa = XCConfigurationList;
@@ -446,6 +453,7 @@
 				7777C96F1DB61AC900428057 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7777C9701DB61AC900428057 /* Build configuration list for PBXLegacyTarget "Upload" */ = {
 			isa = XCConfigurationList;
@@ -454,6 +462,7 @@
 				7777C9721DB61AC900428057 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7777C9731DB61AC900428057 /* Build configuration list for PBXLegacyTarget "Build&Upload" */ = {
 			isa = XCConfigurationList;
@@ -462,6 +471,7 @@
 				7777C9751DB61AC900428057 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7777C9761DB61AC900428057 /* Build configuration list for PBXLegacyTarget "Clean" */ = {
 			isa = XCConfigurationList;
@@ -470,6 +480,7 @@
 				7777C9781DB61AC900428057 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7777C9791DB61AC900428057 /* Build configuration list for PBXLegacyTarget "Debug" */ = {
 			isa = XCConfigurationList;
@@ -478,6 +489,7 @@
 				7777C97B1DB61AC900428057 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7777C97C1DB61AC900428057 /* Build configuration list for PBXNativeTarget "Index" */ = {
 			isa = XCConfigurationList;
@@ -486,6 +498,7 @@
 				7777C97E1DB61AC900428057 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
