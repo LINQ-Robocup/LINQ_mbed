@@ -6,29 +6,68 @@
 #include <Servo.h>
 #include <Ping.h>
 
+//Prototype
+void rotateServo(int);
+void SerialAvailavle();
+
 //RS485インスタンス(複数の関数から使うためグローバル)
 mbed::Serial rs(PA_9, PA_10);
 mbed::DigitalOut rsSW(D3);
-
 float sendData[] = {1, 2, 3, 4, 5, 6, 7};
+
+//Servo
+PwmOut servo(D9);
 
 //==============================================================
 void SerialAvailavle()
 {
 	int getData = rs.getc();
-	//		printf("%d\n", getData);
-	wait_ms(1);
-	rsSW = 1;
-	if(getData < 7 && getData >= 0){
-		for (int i = 0; i < 7; i++) {
-			rs.putc(sendData[getData+i]);
+//	printf("%d\n", getData);
+	
+	switch (getData) {
+		case 0:
+			break;
+
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+		case 6:
+		case 7:
 			wait_ms(1);
-		}
+			rsSW = 1;
+			
+			if(getData < 7 && getData >= 0){
+				for (int i = 0; i < 7; i++) {
+					rs.putc(sendData[getData+i]);
+					wait_ms(1);
+				}
+			}
+			
+			wait_ms(1);
+			rsSW = 0;
+			break;
+		case 8:
+			rotateServo(0);
+			break;
+		case 9:
+			rotateServo(180);
+			break;
+		default:
+			break;
 	}
-	wait_ms(1);
-	rsSW = 0;
 }
 //==============================================================
+
+void rotateServo(int angle) {
+	static const int angleOffset = 2000/180;
+	
+	servo.pulsewidth_us(500 + angleOffset * angle);
+}
+
+//==============================================================
+
 int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[])
 {
 	
@@ -47,7 +86,6 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[])
 //	SRF05 usonic(D11, D12);
 	Ping usonic(D12);
 	
-//	PwmOut pwm(PB_0);
 	PCA9547 mux(D4, D5, 0xE0);
 	mux.select(0);
 	
@@ -87,7 +125,7 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[])
 	mbed::DigitalOut ledDebug2(D8);
 	mbed::DigitalOut ledDebug3(D11);
 	mbed::DigitalOut ledDebug4(D12);
-	
+
 	while(1) {
 
 //		ping.Send();
