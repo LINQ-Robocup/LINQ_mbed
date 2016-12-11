@@ -6,14 +6,29 @@
 #include <Servo.h>
 #include <Ping.h>
 
+#define IRDIST1	0
+#define IRDIST2	1
+#define IRDIST3	2
+#define IRDIST4	3
+#define TEMP1	4
+#define TEMP2	5
+#desine SRDIST	6
+
 //Prototype
 void rotateServo(int);
 void SerialAvailavle();
+
+//LEDs
+mbed::DigitalOut ledDebug1(D7);
+mbed::DigitalOut ledDebug2(D8);
+mbed::DigitalOut ledDebug3(D11);
+mbed::DigitalOut ledDebug4(D12);
 
 //RS485インスタンス(複数の関数から使うためグローバル)
 mbed::Serial rs(PA_9, PA_10);
 mbed::DigitalOut rsSW(D3);
 float sendData[] = {1, 2, 3, 4, 5, 6, 7};
+
 
 //Servo
 PwmOut servo(D9);
@@ -26,27 +41,50 @@ void SerialAvailavle()
 	
 	switch (getData) {
 		case 0:
+			//noise
 			break;
 
 		case 1:
-		case 2:
-		case 3:
-		case 4:
-		case 5:
-		case 6:
-		case 7:
 			wait_ms(1);
 			rsSW = 1;
-			
-			if(getData < 7 && getData >= 0){
-				for (int i = 0; i < 7; i++) {
-					rs.putc(sendData[getData+i]);
-					wait_ms(1);
-				}
+			for (int i = 0; i < 7; i++) {
+				rs.putc(sendData[i]);
+				wait_ms(1);
 			}
-			
 			wait_ms(1);
 			rsSW = 0;
+			break;
+		case 2:
+			wait_ms(1);
+			rsSW = 1;
+			rs.putc(sendData[IRDIST1]);
+			wait_ms(1);
+			rsSW = 0;
+			break;
+		case 3:
+			wait_ms(1);
+			rsSW = 1;
+			rs.putc(sendData[IRDIST2]);
+			wait_ms(1);
+			rsSW = 0;
+			break;
+		case 4:
+			wait_ms(1);
+			rsSW = 1;
+			rs.putc(sendData[IRDIST3]);
+			wait_ms(1);
+			rsSW = 0;
+			break;
+		case 5:
+			wait_ms(1);
+			rsSW = 1;
+			rs.putc(sendData[IRDIST4]);
+			wait_ms(1);
+			rsSW = 0;
+			break;
+		case 6:
+			break;
+		case 7:
 			break;
 		case 8:
 			rotateServo(0);
@@ -120,14 +158,8 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[])
 	/* rsSW 0=受信, 1=送信 */
 	rsSW = 0;
 	
-	//LEDs
-	mbed::DigitalOut ledDebug1(D7);
-	mbed::DigitalOut ledDebug2(D8);
-	mbed::DigitalOut ledDebug3(D11);
-	mbed::DigitalOut ledDebug4(D12);
 
 	while(1) {
-
 //		ping.Send();
 //		wait_us(2500);
 //		printf("usonic=%4d\t", ping.Read_cm());
@@ -143,9 +175,9 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[])
 		sendData[4] = temp.getTemp(4);
 		mux.select(TEMP2);
 		sendData[5] = temp2.getTemp(4);
-		for(int i = 0; i < 7; i++){
-			printf("%4d\t", (int)sendData[i]);
-		}puts("");
+//		for(int i = 0; i < 7; i++){
+//			printf("%4d\t", (int)sendData[i]);
+//		}puts("");
 	}
 }
 
