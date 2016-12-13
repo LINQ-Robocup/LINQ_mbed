@@ -6,13 +6,13 @@
 #include <Servo.h>
 #include <Ping.h>
 
-#define IRDIST1	0
-#define IRDIST2	1
-#define IRDIST3	2
-#define IRDIST4	3
-#define TEMP1	4
-#define TEMP2	5
-#desine SRDIST	6
+#define N_IRDIST1	0
+#define N_IRDIST2	1
+#define N_IRDIST3	2
+#define N_IRDIST4	3
+#define N_TEMP1	4
+#define N_TEMP2	5
+#define N_SRDIST	6
 
 //Prototype
 void rotateServo(int);
@@ -57,28 +57,28 @@ void SerialAvailavle()
 		case 2:
 			wait_ms(1);
 			rsSW = 1;
-			rs.putc(sendData[IRDIST1]);
+			rs.putc(sendData[N_IRDIST1]);
 			wait_ms(1);
 			rsSW = 0;
 			break;
 		case 3:
 			wait_ms(1);
 			rsSW = 1;
-			rs.putc(sendData[IRDIST2]);
+			rs.putc(sendData[N_IRDIST2]);
 			wait_ms(1);
 			rsSW = 0;
 			break;
 		case 4:
 			wait_ms(1);
 			rsSW = 1;
-			rs.putc(sendData[IRDIST3]);
+			rs.putc(sendData[N_IRDIST3]);
 			wait_ms(1);
 			rsSW = 0;
 			break;
 		case 5:
 			wait_ms(1);
 			rsSW = 1;
-			rs.putc(sendData[IRDIST4]);
+			rs.putc(sendData[N_IRDIST4]);
 			wait_ms(1);
 			rsSW = 0;
 			break;
@@ -157,7 +157,15 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[])
 	rs.attach(SerialAvailavle);
 	/* rsSW 0=受信, 1=送信 */
 	rsSW = 0;
-	
+//
+//	while(1){
+//		rotateServo(0);
+//		wait_ms(600);
+//		rotateServo(80);
+//		wait_ms(300);
+//		rotateServo(70);
+//		wait_ms(600);
+//	}
 
 	while(1) {
 //		ping.Send();
