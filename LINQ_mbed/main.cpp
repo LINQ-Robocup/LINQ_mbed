@@ -19,25 +19,25 @@ void rotateServo(int);
 void SerialAvailavle();
 
 //LEDs
-mbed::DigitalOut ledDebug1(D7);
-mbed::DigitalOut ledDebug2(D8);
-mbed::DigitalOut ledDebug3(D11);
-mbed::DigitalOut ledDebug4(D12);
+mbed::DigitalOut led1(D10);
+mbed::DigitalOut led2(D11);
+mbed::DigitalOut led3(D12);
 
 //RS485インスタンス(複数の関数から使うためグローバル)
 mbed::Serial rs(PA_9, PA_10);
 mbed::DigitalOut rsSW(D3);
-float sendData[] = {1, 2, 3, 4, 5, 6, 7};
+float sendData[] = {1, 2, 3, 4, 5, 6, 8};
 
 
 //Servo
 PwmOut servo(D9);
+const int angleOffset = 2000/180;
 
 //==============================================================
 void SerialAvailavle()
 {
 	int getData = rs.getc();
-//	printf("%d\n", getData);
+	printf("%d\n", getData);
 	
 	switch (getData) {
 		case 0:
@@ -87,10 +87,53 @@ void SerialAvailavle()
 		case 7:
 			break;
 		case 8:
-			rotateServo(0);
+			rotateServo(360);
 			break;
 		case 9:
 			rotateServo(180);
+			break;
+		case 10:
+			for(int i = 0; i < 5; i ++) {
+				led3 = 1;
+				wait_ms(500);
+				led3 = 0;
+				wait_ms(500);
+			}
+			break;
+		case 11:
+			servo.pulsewidth_us(500 + angleOffset * 180);
+			wait_ms(600);
+			servo.pulsewidth_us(500 + angleOffset * 40);
+			wait_ms(300);
+			servo.pulsewidth_us(500 + angleOffset * 70);
+			break;
+		case 12:
+			servo.pulsewidth_us(500 + angleOffset * 0);
+			wait_ms(800);
+			servo.pulsewidth_us(500 + angleOffset * 80);
+			wait_ms(300);
+			servo.pulsewidth_us(500 + angleOffset * 70);
+			break;
+		case 13:
+			rotateServo(70);
+			break;
+		case 14:
+			led3 = 1;
+			break;
+		case 15:
+			led3 = 0;
+			break;
+		case 16:
+			led2 = 1;
+			break;
+		case 17:
+			led2 = 0;
+			break;
+		case 18:
+			led1 = 1;
+			break;
+		case 19:
+			led1 = 0;
 			break;
 		default:
 			break;
@@ -99,8 +142,6 @@ void SerialAvailavle()
 //==============================================================
 
 void rotateServo(int angle) {
-	static const int angleOffset = 2000/180;
-	
 	servo.pulsewidth_us(500 + angleOffset * angle);
 }
 
@@ -109,20 +150,20 @@ void rotateServo(int angle) {
 int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[])
 {
 	
-	const int IRDIST1	= 4;
-	const int IRDIST2	= 5;
-	const int IRDIST3	= 0;
-	const int IRDIST4	= 1;
-	const int TEMP1		= 3;
-	const int TEMP2		= 2;
-	const int SR		= NULL;
+	const int IRDIST1	= 3;
+	const int IRDIST2	= 2;
+	const int IRDIST3	= 4;
+	const int IRDIST4	= 5;
+	const int TEMP1		= 0;
+	const int TEMP2		= 1;
+	const int SR		= 13;
 
 	mbed::Serial pc(USBTX, USBRX);
 	pc.baud(9600);
 	
 	//超音波距離センサ
 //	SRF05 usonic(D11, D12);
-	Ping usonic(D12);
+	Ping usonic(D6);
 	
 	PCA9547 mux(D4, D5, 0xE0);
 	mux.select(0);
@@ -151,26 +192,13 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[])
 	irDist.VL6180xInit();
 	irDist.VL6180xDefautSettings();
 	
-	
 	//RS485初期設定
 	rs.baud(9600);
 	rs.attach(SerialAvailavle);
 	/* rsSW 0=受信, 1=送信 */
 	rsSW = 0;
-//
-//	while(1){
-//		rotateServo(0);
-//		wait_ms(600);
-//		rotateServo(80);
-//		wait_ms(300);
-//		rotateServo(70);
-//		wait_ms(600);
-//	}
-
+	
 	while(1) {
-//		ping.Send();
-//		wait_us(2500);
-//		printf("usonic=%4d\t", ping.Read_cm());
 		mux.select(IRDIST1);
 		sendData[0] = irDist.getDistance()/2;
 		mux.select(IRDIST2);
@@ -180,12 +208,33 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[])
 		mux.select(IRDIST4);
 		sendData[3] = irDist.getDistance()/2;
 		mux.select(TEMP1);
-		sendData[4] = temp.getTemp(4);
+		{
+			int temp8 = temp.getTemp(8);
+			int temp9 = temp.getTemp(9);
+			if(temp8 > temp9) {
+				sendData[4] = temp8;
+			}else{
+				sendData[4] = temp9;
+			}
+		}
 		mux.select(TEMP2);
-		sendData[5] = temp2.getTemp(4);
-//		for(int i = 0; i < 7; i++){
-//			printf("%4d\t", (int)sendData[i]);
-//		}puts("");
+		sendData[5] = temp2.getTemp(9);
+		{
+			usonic.Send();
+			wait_us(2500);
+			
+			int sonic = usonic.Read_cm();
+			if(sonic == -1) {
+				sendData[6] = 30;
+			}else{
+				sendData[6] = usonic.Read_cm()/2;
+			}
+			
+		}
+		
+		for(int i = 0; i < 7; i++){
+			printf("%4d\t", (int)sendData[i]);
+		}puts("");
 	}
 }
 
