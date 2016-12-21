@@ -37,7 +37,7 @@ const int angleOffset = 2000/180;
 void SerialAvailavle()
 {
 	int getData = rs.getc();
-	printf("%d\n", getData);
+//	printf("%d\n", getData);
 	
 	switch (getData) {
 		case 0:
@@ -232,9 +232,9 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[])
 			
 		}
 		
-		for(int i = 0; i < 7; i++){
-			printf("%4d\t", (int)sendData[i]);
-		}puts("");
+//		for(int i = 0; i < 7; i++){
+//			printf("%4d\t", (int)sendData[i]);
+//		}puts("");
 	}
 }
 
