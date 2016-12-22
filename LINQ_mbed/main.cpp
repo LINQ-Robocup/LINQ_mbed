@@ -93,10 +93,11 @@ void SerialAvailavle()
 			rotateServo(180);
 			break;
 		case 10:
+			led1 = 0; led2 = 0; led3 = 0;
 			for(int i = 0; i < 5; i ++) {
-				led3 = 1;
+				led1 = 1;
 				wait_ms(500);
-				led3 = 0;
+				led1 = 0;
 				wait_ms(500);
 			}
 			break;
