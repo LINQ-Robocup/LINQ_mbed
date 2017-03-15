@@ -48,7 +48,7 @@ int Ping::Read_cm()
 // -1 means not valid.
 {
     if(_Valid && ~_Busy) 
-        return ((_Time*_SPEED_OF_SOUND_CM)/1000);
+        return ((_Time*_SPEED_OF_SOUND_CM)/2000);
     else 
         return -1;
 }
