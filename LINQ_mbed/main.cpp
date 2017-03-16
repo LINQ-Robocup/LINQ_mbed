@@ -6,6 +6,8 @@
 #include "Servo.h"
 #include "Ping.h"
 
+#define DEBUG
+
 //Prototype
 void rotateServo(int);
 void SerialAvailavle();
@@ -90,7 +92,9 @@ void SerialAvailavle(){
 	bool writeFlag = false;
 	
 	int getData = rs.getc();
-//	printf("%d\n",getData);
+#ifdef DEBUG
+	printf("%d\n",getData);
+#endif
 	
 	int count = 0;
 	switch (getData) {
@@ -244,8 +248,6 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[]) {
 			if(data[SR] > 127) {
 				data[SR] = 127;
 			}
-		}else{
-//			data[SR] = 255;
 		}
 		
 		if(led1Flag == true) {
