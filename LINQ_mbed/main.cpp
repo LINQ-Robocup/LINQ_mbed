@@ -27,11 +27,15 @@ bool led1Flag = false;
 bool led2Flag = false;
 bool led3Flag = false;
 
+bool sonicFlag = false;
+
 //==============================================================
 
 mbed::Serial rs(PA_9, PA_10);
 mbed::DigitalOut rsSW(D3);
 Ping usonic(D6);
+DigitalInOut pingPin(D6);
+Timer t;
 PwmOut servo(D9);
 
 //LEDs
@@ -48,8 +52,9 @@ void rotateServo(int angle) {
 
 //==============================================================
 
-const int SENSOR_ALL = 1;
-const int SENSOR_SONIC = 2;
+const int READ_ALL = 1;
+const int ENABLE_SONIC = 2;
+const int DISABLE_SONIC = 3;
 
 const int LED_BLUE_ON = 20;
 const int LED_BLUE_OFF = 21;
@@ -59,11 +64,23 @@ const int LED_YELLOW_ON = 24;
 const int LED_YELLOW_OFF = 25;
 
 
-void test() {
-	usonic.Send();
-	wait_us(8000);
+
+//==============================================================
+
+int readSonic() {
+	pingPin.output();
+	pingPin = 0;
+	wait_us(5);
+	pingPin = 1;
+	wait_us(5);
+	pingPin = 0;
+	pingPin.input();
 	
-	printf("%d\n", usonic.Read_cm());
+	while (! pingPin);
+	t.reset();
+	while (pingPin);
+	int duration =  t.read_us()/2;
+	return duration*34/1000;
 }
 
 
@@ -73,30 +90,26 @@ void SerialAvailavle(){
 	bool writeFlag = false;
 	
 	int getData = rs.getc();
-	printf("%d\n", getData);
+//	printf("%d\n",getData);
 	
 	int count = 0;
 	switch (getData) {
-		case SENSOR_ALL:
+		case READ_ALL:
 			writeFlag = true;
-			count = 7;
+			count = 8;
 			sendData[0] = data[DIST_FL];
 			sendData[1] = data[DIST_FR];
 			sendData[2] = data[DIST_L];
 			sendData[3] = data[DIST_R];
 			sendData[4] = data[TEMP_L];
 			sendData[5] = data[TEMP_R];
-			sendData[6] = 111;
+			sendData[6] = data[SR];
+			sendData[7] = 111;
+			sonicFlag = false;
 			break;
 		
-		case SENSOR_SONIC:
-			writeFlag = true;
-			count = 2;
-			
-			if(sendData[0] > 127) {
-				sendData[0] = 127;
-			}
-			sendData[1] = 111;
+		case ENABLE_SONIC:
+			sonicFlag = true;
 			break;
 
 		case 20:
@@ -120,22 +133,13 @@ void SerialAvailavle(){
 			led3Flag = false;
 			break;
 		case 30:
-			//rotate Servo left
-			servo.pulsewidth_us(500 + angleOffset * 180);
+			rotateServo(90);
+			wait_ms(200);
+			rotateServo(45);
 			wait_ms(600);
-			servo.pulsewidth_us(500 + angleOffset * 40);
-			wait_ms(300);
-			servo.pulsewidth_us(500 + angleOffset * 70);
+			rotateServo(90);
+			//total 900ms
 			break;
-		case 31:
-			//rotate servo right
-			servo.pulsewidth_us(500 + angleOffset * 0);
-			wait_ms(800);
-			servo.pulsewidth_us(500 + angleOffset * 80);
-			wait_ms(300);
-			servo.pulsewidth_us(500 + angleOffset * 70);
-			break;
-			
 		default:
 			break;
 	}
@@ -164,6 +168,8 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[]) {
 	const int M_DIST4	= 5;
 	const int M_TEMP1	= 0;
 	const int M_TEMP2	= 1;
+	
+	const int wallDistanceOffset = 60;
 
 	mbed::Serial pc(USBTX, USBRX);
 	pc.baud(9600);
@@ -205,6 +211,7 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[]) {
 	rs.attach(SerialAvailavle);
 	/* rsSW 0=受信, 1=送信 */
 	rsSW = 0;
+	t.start();
 
 	while(1) {
 		mux.select(M_DIST1);
@@ -219,11 +226,27 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[]) {
 		mux.select(M_DIST4);
 		data[DIST_FL] = dist.getDistance()/2;
 		
-		mux.select(M_TEMP1);
-		data[TEMP_R] = temp1.getTemp(4);
+		if(data[DIST_R] < wallDistanceOffset) {
+			mux.select(M_TEMP1);
+			data[TEMP_R] = temp1.getTemp(4);
+		}else{
+			data[TEMP_R] = 10;
+		}
+		if(data[DIST_L] < wallDistanceOffset) {
+			mux.select(M_TEMP2);
+			data[TEMP_L] = temp2.getTemp(4);
+		}else{
+			data[TEMP_L] = 10;
+		}
 		
-		mux.select(M_TEMP2);
-		data[TEMP_L] = temp2.getTemp(4);
+		if(sonicFlag) {
+			data[SR] = readSonic();
+			if(data[SR] > 127) {
+				data[SR] = 127;
+			}
+		}else{
+//			data[SR] = 255;
+		}
 		
 		if(led1Flag == true) {
 			led1 = 1;
@@ -242,7 +265,8 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[]) {
 		}else{
 			led3 = 0;
 		}
-		//		for(int i = 0; i < 7; i++){
+		
+//		for(int i = 0; i < 7; i++){
 //			printf("%4d\t", (int)data[i]);
 //		}puts("");
 	}
