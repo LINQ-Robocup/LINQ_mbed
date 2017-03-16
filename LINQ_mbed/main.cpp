@@ -170,8 +170,8 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[]) {
 	const int M_DIST2	= 2;
 	const int M_DIST3	= 4;
 	const int M_DIST4	= 5;
-	const int M_TEMP1	= 0;
-	const int M_TEMP2	= 1;
+	const int M_TEMP1	= 1;
+	const int M_TEMP2	= 0;
 	
 	const int wallDistanceOffset = 60;
 
@@ -188,9 +188,9 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[]) {
 	
 	//温度センサのインスタンス作成
 	mux.select(M_TEMP1);
-	TPA81 temp1(D4, D5, 0xD2);
+	TPA81 temp1(D4, D5, 0xD0);
 	mux.select(M_TEMP2);
-	TPA81 temp2(D4, D5, 0xD0);
+	TPA81 temp2(D4, D5, 0xD2);
 	
 	//IR距離センサのインスタンス作成
 	mux.select(M_DIST1);
