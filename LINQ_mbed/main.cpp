@@ -7,7 +7,6 @@
 #include "Ping.h"
 
 #define DEBUG
-
 //Prototype
 void rotateServo(int);
 void SerialAvailavle();
@@ -92,22 +91,22 @@ void SerialAvailavle(){
 	bool writeFlag = false;
 	
 	int getData = rs.getc();
-#ifdef DEBUG
-	printf("%d\n",getData);
-#endif
+//#ifdef DEBUG
+//	printf("%d\n",getData);
+//#endif
 	
 	int count = 0;
 	switch (getData) {
 		case READ_ALL:
 			writeFlag = true;
 			count = 8;
-			sendData[0] = data[DIST_FL];
-			sendData[1] = data[DIST_FR];
-			sendData[2] = data[DIST_L];
-			sendData[3] = data[DIST_R];
+			sendData[0] = (data[DIST_FL] < 127 && data[DIST_FL] > 0) ? data[DIST_FL] : 127;
+			sendData[1] = (data[DIST_FR] < 127 && data[DIST_FR] > 0) ? data[DIST_FR] : 127;
+			sendData[2] = (data[DIST_L]  < 127 && data[DIST_L]  > 0) ? data[DIST_L] : 127;
+			sendData[3] = (data[DIST_R]  < 127 && data[DIST_R]  > 0) ? data[DIST_R] : 127;
 			sendData[4] = data[TEMP_L];
 			sendData[5] = data[TEMP_R];
-			sendData[6] = data[SR];
+			sendData[6] = (data[SR] < 127 && data[SR] > 0) ? data[SR] : 127;;
 			sendData[7] = 111;
 			sonicFlag = false;
 			break;
@@ -137,12 +136,18 @@ void SerialAvailavle(){
 			led3Flag = false;
 			break;
 		case 30:
-			rotateServo(90);
-			wait_ms(200);
-			rotateServo(45);
-			wait_ms(600);
-			rotateServo(90);
-			//total 900ms
+			rotateServo(100);
+			wait_ms(250);
+			rotateServo(60);
+			wait_ms(500);
+			rotateServo(88);
+			wait_ms(500);
+			rotateServo(70);
+			wait_ms(500);
+			rotateServo(110);
+			wait_ms(500);
+			rotateServo(100);
+			//total 2000ms
 			break;
 		default:
 			break;
@@ -216,7 +221,10 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[]) {
 	/* rsSW 0=受信, 1=送信 */
 	rsSW = 0;
 	t.start();
-
+	
+	/* testArea */
+	
+	/* end */
 	while(1) {
 		mux.select(M_DIST1);
 		data[DIST_FR] = dist.getDistance()/2;
