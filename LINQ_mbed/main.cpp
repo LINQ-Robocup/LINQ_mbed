@@ -32,6 +32,7 @@ bool sonicFlag = false;
 
 //==============================================================
 
+mbed::Serial pc(USBTX, USBRX);
 mbed::Serial rs(PA_9, PA_10);
 mbed::DigitalOut rsSW(D3);
 Ping usonic(D6);
@@ -151,6 +152,20 @@ void SerialAvailavle(){
 			break;
 		default:
 			break;
+		case 31:
+			//debug led on
+			led1=1;
+			//send message to raspi
+			pc.printf("hello");
+			//receive message from raspi & set send data
+			sendData[0] = pc.getc();
+			
+			writeFlag = true;
+			count = 1;
+			
+			//debug led off
+			led1=0;
+			break;
 	}
 	
 	if(writeFlag == true) {
@@ -180,7 +195,6 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[]) {
 	
 	const int wallDistanceOffset = 60;
 
-	mbed::Serial pc(USBTX, USBRX);
 	pc.baud(9600);
 	
 	servo.period_ms(20);
