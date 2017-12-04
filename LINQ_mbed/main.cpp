@@ -12,8 +12,8 @@ void rotateServo(int);
 void SerialAvailavle();
 
 
-float data[] = {1, 2, 3, 4, 5, 6, 7, 8};
-float sendData[] = {1, 2, 3, 4, 5, 6, 7, 8};
+float data[] = {1, 2, 3, 4, 5, 6, 7, 53, 23, 9};
+float sendData[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
 
 const int DIST_R	= 0;
@@ -23,12 +23,17 @@ const int DIST_FL	= 3;
 const int TEMP_R	= 4;
 const int TEMP_L	= 5;
 const int SR		= 6;
+const int CAMERA_LEFT		= 7;
+const int CAMERA_RIGHT		= 8;
 
 bool led1Flag = false;
 bool led2Flag = false;
 bool led3Flag = false;
 
 bool sonicFlag = false;
+
+bool cameraLeftFlag = false;
+bool cameraRightFlag = false;
 
 //==============================================================
 
@@ -65,6 +70,8 @@ const int LED_GREEN_OFF = 23;
 const int LED_YELLOW_ON = 24;
 const int LED_YELLOW_OFF = 25;
 
+const int ENABLE_CAMERA_LEFT = 31;
+const int ENABLE_CAMERA_RIGHT = 32;
 
 
 //==============================================================
@@ -87,6 +94,19 @@ int readSonic() {
 
 
 //==============================================================
+
+int readRaspi(int direction) {
+	led1 = 1;
+	pc.printf("%d",direction);
+	while (!pc.readable()) {}
+	int getData = pc.getc();
+	if(getData == 50) led2 = 1;
+//	led1 = 0;
+	return getData;
+}
+
+//==============================================================
+
 void SerialAvailavle(){
 	
 	bool writeFlag = false;
@@ -100,16 +120,20 @@ void SerialAvailavle(){
 	switch (getData) {
 		case READ_ALL:
 			writeFlag = true;
-			count = 8;
+			count = 10;
 			sendData[0] = (data[DIST_FL] < 127 && data[DIST_FL] > 0) ? data[DIST_FL] : 127;
 			sendData[1] = (data[DIST_FR] < 127 && data[DIST_FR] > 0) ? data[DIST_FR] : 127;
 			sendData[2] = (data[DIST_L]  < 127 && data[DIST_L]  > 0) ? data[DIST_L] : 127;
 			sendData[3] = (data[DIST_R]  < 127 && data[DIST_R]  > 0) ? data[DIST_R] : 127;
 			sendData[4] = data[TEMP_L];
 			sendData[5] = data[TEMP_R];
-			sendData[6] = (data[SR] < 127 && data[SR] > 0) ? data[SR] : 127;;
-			sendData[7] = 111;
+			sendData[6] = (data[SR] < 127 && data[SR] > 0) ? data[SR] : 127;
+			sendData[7] = data[CAMERA_LEFT];
+			sendData[8] = data[CAMERA_RIGHT];
+			sendData[9] = 111;
 			sonicFlag = false;
+			cameraLeftFlag = false;
+			cameraRightFlag = false;
 			break;
 		
 		case ENABLE_SONIC:
@@ -152,19 +176,11 @@ void SerialAvailavle(){
 			break;
 		default:
 			break;
-		case 31:
-			//debug led on
-			led1=1;
-			//send message to raspi
-			pc.printf("hello");
-			//receive message from raspi & set send data
-			sendData[0] = pc.getc();
-			
-			writeFlag = true;
-			count = 1;
-			
-			//debug led off
-			led1=0;
+		case ENABLE_CAMERA_LEFT:
+			cameraLeftFlag = true;
+			break;
+		case ENABLE_CAMERA_RIGHT:
+			cameraRightFlag = true;
 			break;
 	}
 	
@@ -239,7 +255,11 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[]) {
 	/* testArea */
 	
 	/* end */
+	
+	
+	bool flag = false;
 	while(1) {
+		
 		mux.select(M_DIST1);
 		data[DIST_FR] = dist.getDistance()/2;
 		
@@ -271,6 +291,14 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[]) {
 				data[SR] = 127;
 			}
 		}
+		
+		if(cameraLeftFlag) {
+			data[CAMERA_LEFT] = readRaspi(1);
+		}
+		if(cameraRightFlag) {
+			data[CAMERA_RIGHT] = readRaspi(2);
+		}
+		
 		
 		if(led1Flag == true) {
 			led1 = 1;
