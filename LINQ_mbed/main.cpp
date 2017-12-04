@@ -12,7 +12,7 @@ void rotateServo(int);
 void SerialAvailavle();
 
 
-float data[] = {1, 2, 3, 4, 5, 6, 7, 53, 23, 9};
+float data[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 float sendData[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
 
@@ -96,13 +96,15 @@ int readSonic() {
 //==============================================================
 
 int readRaspi(int direction) {
-	led1 = 1;
-	pc.printf("%d",direction);
-	while (!pc.readable()) {}
-	int getData = pc.getc();
-	if(getData == 50) led2 = 1;
+	led2 = 1;
+	pc.printf("%c",direction == 1 ? 'l': 'r');
+//	while (!pc.readable()) {}
+//	int getData = pc.getc();
 //	led1 = 0;
-	return getData;
+	wait_ms(100);
+	cameraLeftFlag = false;
+	cameraRightFlag = false;
+	return direction == 1 ? 45 : 67;
 }
 
 //==============================================================
@@ -128,12 +130,12 @@ void SerialAvailavle(){
 			sendData[4] = data[TEMP_L];
 			sendData[5] = data[TEMP_R];
 			sendData[6] = (data[SR] < 127 && data[SR] > 0) ? data[SR] : 127;
-			sendData[7] = data[CAMERA_LEFT];
-			sendData[8] = data[CAMERA_RIGHT];
+			sendData[7] = cameraLeftFlag == true ? data[CAMERA_LEFT] : 0;
+			sendData[8] = cameraRightFlag == true ?  data[CAMERA_RIGHT] : 0;
 			sendData[9] = 111;
 			sonicFlag = false;
-			cameraLeftFlag = false;
-			cameraRightFlag = false;
+//			cameraLeftFlag = false;
+//			cameraRightFlag = false;
 			break;
 		
 		case ENABLE_SONIC:
@@ -257,8 +259,16 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[]) {
 	/* end */
 	
 	
-	bool flag = false;
 	while(1) {
+		
+		if(cameraLeftFlag) {
+			led1 = 1;
+			led2 = 0;
+		}
+		if(cameraRightFlag) {
+			led1 = 0;
+			led2 = 1;
+		}
 		
 		mux.select(M_DIST1);
 		data[DIST_FR] = dist.getDistance()/2;
@@ -294,9 +304,11 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[]) {
 		
 		if(cameraLeftFlag) {
 			data[CAMERA_LEFT] = readRaspi(1);
+//			data[CAMERA_LEFT] = 83;
 		}
 		if(cameraRightFlag) {
 			data[CAMERA_RIGHT] = readRaspi(2);
+//			data[CAMERA_RIGHT] = 37;
 		}
 		
 		
