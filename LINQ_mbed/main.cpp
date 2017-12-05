@@ -64,6 +64,9 @@ const int LED_GREEN_OFF = 23;
 const int LED_YELLOW_ON = 24;
 const int LED_YELLOW_OFF = 25;
 
+const int ENABLE_CAMERA_LEFT = 31;
+const int ENABLE_CAMERA_RIGHT = 32;
+const int RESET_SOME_VALUES = 35;
 
 
 //==============================================================
@@ -151,6 +154,16 @@ void SerialAvailavle(){
 			break;
 		default:
 			break;
+		case ENABLE_CAMERA_LEFT:
+			cameraLeftFlag = true;
+			break;
+		case ENABLE_CAMERA_RIGHT:
+			cameraRightFlag = true;
+			break;
+		case RESET_SOME_VALUES:
+			data[CAMERA_LEFT] = 0;
+			data[CAMERA_RIGHT] = 0;
+			data[SR] = 0;
 	}
 	
 	if(writeFlag == true) {
