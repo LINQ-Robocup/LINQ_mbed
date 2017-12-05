@@ -12,8 +12,8 @@ void rotateServo(int);
 void SerialAvailavle();
 
 
-float data[] = {1, 2, 3, 4, 5, 6, 7, 8};
-float sendData[] = {1, 2, 3, 4, 5, 6, 7, 8};
+float data[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+float sendData[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
 
 const int DIST_R	= 0;
@@ -23,6 +23,8 @@ const int DIST_FL	= 3;
 const int TEMP_R	= 4;
 const int TEMP_L	= 5;
 const int SR		= 6;
+const int CAMERA_LEFT		= 7;
+const int CAMERA_RIGHT		= 8;
 
 bool led1Flag = false;
 bool led2Flag = false;
@@ -30,8 +32,12 @@ bool led3Flag = false;
 
 bool sonicFlag = false;
 
+bool cameraLeftFlag = false;
+bool cameraRightFlag = false;
+
 //==============================================================
 
+mbed::Serial pc(USBTX, USBRX);
 mbed::Serial rs(PA_9, PA_10);
 mbed::DigitalOut rsSW(D3);
 Ping usonic(D6);
@@ -89,6 +95,33 @@ int readSonic() {
 
 
 //==============================================================
+
+int readRaspi(int direction) {
+	
+	if(cameraLeftFlag) {
+		led1 = 1;
+		led2 = 0;
+	}
+	if(cameraRightFlag) {
+		led1 = 0;
+		led2 = 1;
+	}
+	
+	pc.printf("%c",direction == 0 ? 'l': 'r');
+	while (!pc.readable()) {}
+	int getData = pc.getc();
+	
+	cameraLeftFlag = false;
+	cameraRightFlag = false;
+	
+	//	wait_ms(1000);
+	//	return direction == 1 ? 45 : 67;
+	
+	return getData;
+}
+
+//==============================================================
+
 void SerialAvailavle(){
 	
 	bool writeFlag = false;
@@ -102,16 +135,21 @@ void SerialAvailavle(){
 	switch (getData) {
 		case READ_ALL:
 			writeFlag = true;
-			count = 8;
+			count = 10;
 			sendData[0] = (data[DIST_FL] < 127 && data[DIST_FL] > 0) ? data[DIST_FL] : 127;
 			sendData[1] = (data[DIST_FR] < 127 && data[DIST_FR] > 0) ? data[DIST_FR] : 127;
 			sendData[2] = (data[DIST_L]  < 127 && data[DIST_L]  > 0) ? data[DIST_L] : 127;
 			sendData[3] = (data[DIST_R]  < 127 && data[DIST_R]  > 0) ? data[DIST_R] : 127;
 			sendData[4] = data[TEMP_L];
 			sendData[5] = data[TEMP_R];
-			sendData[6] = (data[SR] < 127 && data[SR] > 0) ? data[SR] : 127;;
-			sendData[7] = 111;
+			sendData[6] = (data[SR] < 127 && data[SR] > 0) ? data[SR] : 127;
+			sendData[7] = data[CAMERA_LEFT];
+			sendData[8] = data[CAMERA_RIGHT];
+			sendData[9] = 111;
 			sonicFlag = false;
+			
+			data[CAMERA_LEFT] = 0;
+			data[CAMERA_RIGHT] = 0;
 			break;
 		
 		case ENABLE_SONIC:
@@ -193,7 +231,6 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[]) {
 	
 	const int wallDistanceOffset = 60;
 
-	mbed::Serial pc(USBTX, USBRX);
 	pc.baud(9600);
 	
 	servo.period_ms(20);
@@ -238,6 +275,8 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[]) {
 	/* testArea */
 	
 	/* end */
+	
+	
 	while(1) {
 		mux.select(M_DIST1);
 		data[DIST_FR] = dist.getDistance()/2;
@@ -270,6 +309,16 @@ int main(int MBED_UNUSED argc, const char MBED_UNUSED * argv[]) {
 				data[SR] = 127;
 			}
 		}
+		
+		if(cameraLeftFlag) {
+			data[CAMERA_LEFT] = readRaspi(0);
+//			data[CAMERA_LEFT] = 83;
+		}
+		if(cameraRightFlag) {
+			data[CAMERA_RIGHT] = readRaspi(1);
+//			data[CAMERA_RIGHT] = 37;
+		}
+		
 		
 		if(led1Flag == true) {
 			led1 = 1;
