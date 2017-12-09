@@ -37,6 +37,7 @@ bool cameraRightFlag = false;
 
 //==============================================================
 
+Timer serialTimer;
 mbed::Serial pc(USBTX, USBRX);
 mbed::Serial rs(PA_9, PA_10);
 mbed::DigitalOut rsSW(D3);
@@ -97,7 +98,7 @@ int readSonic() {
 //==============================================================
 
 int readRaspi(int direction) {
-	
+	int getData = 0;
 	if(cameraLeftFlag) {
 		led1 = 1;
 		led2 = 0;
@@ -108,8 +109,17 @@ int readRaspi(int direction) {
 	}
 	
 	pc.printf("%c",direction == 0 ? 'l': 'r');
-	while (!pc.readable()) {}
-	int getData = pc.getc();
+	serialTimer.reset();
+	serialTimer.start();
+	while (!pc.readable() && serialTimer.read_ms() < 2000) {}
+	if(serialTimer.read_ms() < 2000)
+		getData = pc.getc();
+	if(getData == 0) {
+		led3 = 1;
+	}else{
+		led3 = 0;
+	}
+
 	
 	cameraLeftFlag = false;
 	cameraRightFlag = false;
